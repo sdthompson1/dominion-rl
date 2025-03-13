@@ -70,7 +70,7 @@ In the default kingdom, the agent learns a "Big Money + Wharf" strategy, which s
 To use imitation learning instead:
 
 1. Edit the DQNAgent creation code in `main.py`, changing `predefined_strategy=None` to `predefined_strategy=buy_menu_strategy`
-  - This predefined strategy can score maybe 10 points by itself, but the DQN agent is able to improve it significantly
+   - This predefined strategy can score maybe 10 points by itself, but the DQN agent is able to improve it significantly
 2. Delete the existing `dominion_dqn.pt` file if it exists
 3. Run `python main.py` again
 
