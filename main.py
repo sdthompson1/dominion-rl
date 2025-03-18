@@ -1,6 +1,7 @@
 from dominion import DominionEnv, CardId
 from buy_menu_strategy import BuyMenuStrategy, BuyMenuItem
 from learning import DQNAgent
+import os
 
 # Main function to run DQN agent in Dominion
 def main():
@@ -82,7 +83,12 @@ def main():
 
     # Train the agent
     print("Training DQN agent...")
-    agent.train(num_episodes=4000, print_freq=100)
+    agent.train(num_episodes=4000, print_freq=100, sample_freq=500)
+
+    # Plot graphs
+    if not os.path.exists("plots"):
+        os.makedirs("plots")
+    agent.plot_graphs(save_path="plots")
 
     # Save the trained model
     agent.save_model("dominion_dqn.pt")

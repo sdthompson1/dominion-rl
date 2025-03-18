@@ -48,7 +48,7 @@ The agent uses a combination of imitation learning from a predefined strategy an
 - Epsilon-greedy exploration strategy
 - (Optional) Hybrid learning that starts from a predefined `Strategy` and gradually transitions to self-learned policy
 - Functions for training, saving, and loading the model
-- A function for running sample games and printing various stats
+- Tools for evaluating the agent and plotting graphs of training progress
 
 
 ## Example Usage
@@ -63,20 +63,20 @@ The script will:
 1. Initialize the environment with a specific kingdom
 2. Create a DQN agent with reinforcement learning, starting from a randomized initial strategy
 3. Train the agent over 4,000 games
-4. Save the trained model as `dominion_dqn.pt`
+4. Save graphs of training progress to a "plots" folder (which will be created if required)
+5. Save the trained model as `dominion_dqn.pt`
 
 In the default kingdom, the agent learns a "Big Money + Wharf" strategy, which scores around 31 points in the time available.
 
-To use imitation learning instead:
+To use the predefined strategy instead:
 
 1. Edit the DQNAgent creation code in `main.py`, changing `predefined_strategy=None` to `predefined_strategy=buy_menu_strategy`
-   - This predefined strategy can score maybe 10 points by itself, but the DQN agent is able to improve it significantly
 2. Delete the existing `dominion_dqn.pt` file if it exists
 3. Run `python main.py` again
 
-The agent now learns a strategy involving University, Alchemist, Wharf and Vineyard, which is capable of scoring around 40--60 points (i.e. beating the previous Big Money-like strategy), although training can sometimes be a little unstable.
+In this case, the agent begins with an "imitation learning" phase where it learns to copy the predefined strategy, scoring around 10 points. As training progresses, the agent shifts away from the predefined strategy and instead explores freely on its own, allowing it to discover a new strategy involving University, Alchemist, Wharf and Vineyard, scoring around 40--60 points on average (although it might be necessary to train for longer than the default 4,000 episodes in order to see this).
 
-You can also re-run `main.py` to resume training (starting from the saved `dominion_dqn.pt` model) if desired.
+You can also re-run `main.py` to resume training (starting from the saved `dominion_dqn.pt` model) if desired. (If doing this, it might be desirable to decrease the initial epsilon and/or predefined strategy probability, as you don't need as much exploration when restarting from a previous run.)
 
 For further experimentation, training parameters can be adjusted by editing `main.py`, and the neural network architecture can be changed by editing the `QNetwork` class in `learning.py`. Also, of course, different combinations of kingdom cards can be tried, by modifying the list near the top of `main.py`.
 
@@ -107,6 +107,9 @@ Implementing a new `Strategy` subclass that can execute some of the strategies f
 - Python 3.10+
 - PyTorch
 - NumPy
+- Matplotlib
+
+After installing Python, the remaining requirements can be installed with `pip install torch numpy matplotlib`.
 
 
 ## Future Improvements
@@ -117,4 +120,5 @@ Potential areas for enhancement:
 - Add more sophisticated exploration mechanisms, to reduce the need for imitation learning
 - Experiment with different RL algorithms (PPO, A2C, etc.) and neural network architectures
 - Improve the state representation for better learning
-- Add a GUI for human vs. AI play
+- Add full game logging so we can see the played strategies in more detail
+- In the single-player case, experiment with mean-variance optimization (i.e. search for strategies that have high expected scores but also low variance of points scored)
