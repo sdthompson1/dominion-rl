@@ -13,6 +13,9 @@ This project implements:
 
 The agent uses a combination of imitation learning from a predefined strategy and randomized exploration to discover optimal play patterns.
 
+A full write-up of the project, including graphs, can be found at
+https://www.solarflare.org.uk/dominion.
+
 
 ## Components
 
@@ -122,3 +125,12 @@ Potential areas for enhancement:
 - Improve the state representation for better learning
 - Add full game logging so we can see the played strategies in more detail
 - In the single-player case, experiment with mean-variance optimization (i.e. search for strategies that have high expected scores but also low variance of points scored)
+
+
+## Contact Details
+
+This project was created by Stephen Thompson.
+
+Email: stephen (at) solarflare.org.uk
+
+Website: https://www.solarflare.org.uk/
